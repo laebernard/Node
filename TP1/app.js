@@ -5,6 +5,25 @@ const app = express()
 // port du localhost
 const port = 3000
 
+
+const metrics = {
+  status: "healthy",
+  resquestCount: {},
+}
+
+app.use((req, res, next) => {
+  const route = req.url
+  if (route in metrics.resquestCount){
+    metrics.resquestCount[route]++
+  }
+  else{
+    metrics.resquestCount[route]=1
+  }
+  console.log(`[${new Date().toISOString()}]: ${req.url}`);
+  next();
+  
+});
+
 // permet d'afficher un message sur la page
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -35,7 +54,7 @@ app.get('/img',(req,res) => {
 })
 
 app.get('/redirectMe',(req,res) => {
-    res.location.href='http://extra.univ-littoral.fr/'
+  res.redirect('http://extra.univ-littoral.fr/')
 })
 
 app.get('/users/:name',(req,res) => {
@@ -50,16 +69,14 @@ app.get('/somme', (req, res) => {
     const sum = a + b;
     res.send(`Le résultat de la somme entre ${a} et ${b} est ${sum}.`);
   });
+
+app.get('/metrics',(req,res,next) => {
+    metrics.uptime = process.uptime()
+    return res.json(metrics)
+  
+  }) 
   
 app.use((req, res, next) => {
-    const now = new Date();
-    console.log(`[${now.toISOString()}]: ${req.originalUrl}`);
-    next();
-  });
-
-  app.use((req, res, next) => {
     res.status(404).send('Cette page n\'existe pas!');
-  });
-  
+    });
 
-  
