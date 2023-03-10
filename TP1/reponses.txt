@@ -1,0 +1,8 @@
+1. Le fichier package.json permet d'implémenter
+les outils Node 
+
+2. Le fichier "package-lock.json permet par la site de créer une 
+API Rest
+
+3. la commande "npm install express --save-dev" à permis de rajouter la 
+partie developpeur dans l'instalation donc cela n'est pas forcément une bonne idée
