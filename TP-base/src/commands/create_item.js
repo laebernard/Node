@@ -35,10 +35,10 @@ module.exports = {
 
                 }
             });
-            await interaction.reply("Utilisateur créé avec succès !");
+            await interaction.reply("Item créé avec succès !");
         } catch (error) {
             console.error(error);
-            await interaction.reply("Une erreur s'est produite lors de la création de l'utilisateur.");
+            await interaction.reply("Une erreur s'est produite lors de la création de l'item.");
         }
     },  
 };
